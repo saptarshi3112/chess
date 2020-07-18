@@ -22,7 +22,7 @@ public class Tile extends JPanel {
     // This var will create the logo of the tile.
     private JLabel logo;
 
-    // These params will decide the futhur color of the board.
+    // These params will decide the farther color of the board.
     private boolean isInDanger = false;
     private boolean isNextMove = false;
 
