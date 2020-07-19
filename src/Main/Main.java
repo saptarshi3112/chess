@@ -16,6 +16,8 @@ public class Main extends JFrame implements MouseListener {
     private final Tile[][] tileBoard = new Tile[ROWS][COLS];
 
     private static Knight blackKnight, blackKnight2;
+    private static Rook blackRook, blackRook2;
+    private static Bishop blackBishop, blackBishop2;
 
     private static Tile previousTile = null;
     private static Piece previousClick = null;
@@ -35,11 +37,20 @@ public class Main extends JFrame implements MouseListener {
 
                 Piece tempPiece = null;
 
+                // The first row will contain all the black main pieces.
                 if (i == 0) {
+                    if (j == 0)
+                        tempPiece = blackRook;
                     if (j == 1)
                         tempPiece = blackKnight;
+                    if (j == 2)
+                        tempPiece = blackBishop;
+                    if (j == 5)
+                        tempPiece = blackBishop2;
                     if (j == 6)
                         tempPiece = blackKnight2;
+                    if (j == 7)
+                        tempPiece = blackRook2;
                 }
 
                 // create a new tile.
@@ -68,6 +79,12 @@ public class Main extends JFrame implements MouseListener {
 
         blackKnight = new Knight("Black_Knight.png", "BLACK", "KNIGHT");
         blackKnight2 = new Knight("Black_Knight.png", "BLACK", "KNIGHT");
+
+        blackRook = new Rook("Black_Rook.png", "BLACK", "ROOK");
+        blackRook2 = new Rook("Black_Rook.png", "BLACK", "ROOK");
+
+        blackBishop = new Bishop("Black_Bishop.png", "BLACK", "BISHOP");
+        blackBishop2 = new Bishop("Black_Bishop.png", "BLACK", "BISHOP");
 
         new Main();
     }
@@ -99,20 +116,47 @@ public class Main extends JFrame implements MouseListener {
 
             // get the type of piece.
             String type = currentPiece.getType();
+            System.out.println(type);
 
+            // This block will take care of the coloring of the board.
             switch (type) {
                 case "KNIGHT":
-                    // cast the piece to knight.
-                    Knight knight = (Knight)(currentPiece);
-                    List <Move> possibleMovesKnight = knight.getAllPossibleMoves(this.tileBoard, xAxis, yAxis);
-                    this.colorBoard(possibleMovesKnight);
+                    try {
+                        // cast the piece to knight.
+                        Knight knight = (Knight) (currentPiece);
+                        List<Move> possibleMovesKnight = knight.getAllPossibleMoves(this.tileBoard, xAxis, yAxis);
+                        this.colorBoard(possibleMovesKnight);
+                    } catch(Exception ex) {
+                        ex.printStackTrace();
+                    }
                     break;
                 case "ROOK":
-                    Rook rook = (Rook)(currentPiece);
-                    List <Move> possibleMovesRook = rook.getAllPossibleMoves(this.tileBoard, xAxis, yAxis);
-                    this.colorBoard(possibleMovesRook);
+                    try {
+                        Rook rook = (Rook) (currentPiece);
+                        List<Move> possibleMovesRook = rook.getAllPossibleMoves(this.tileBoard, xAxis, yAxis);
+                        this.colorBoard(possibleMovesRook);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                     break;
+                case "BISHOP":
+
+                    try {
+
+                        Bishop bishop = (Bishop) (currentPiece);
+                        List<Move> possibleMovesBishop = bishop.getAllPossibleMoves(this.tileBoard, xAxis, yAxis);
+                        this.colorBoard(possibleMovesBishop);
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    break;
+
                 default:
+
+                    System.out.println("No piece of this type.");
+
                     break;
             }
 
@@ -125,6 +169,8 @@ public class Main extends JFrame implements MouseListener {
             // When the tile is blank, check if previous click had a piece or not.
             if (previousClick != null) {
 
+                // if that click is in the list of possible moves.
+                // We can move a piece there.
                 List <Move> possibleMoves = previousClick.getPossibleMoves();
                 for (Move move : possibleMoves) {
                     if (xAxis.equals(move.getX()) && yAxis.equals(move.getY())) {
@@ -136,13 +182,13 @@ public class Main extends JFrame implements MouseListener {
 
                         // put that piece in the new position.
                         this.tileBoard[xAxis][yAxis].setPiece(previousClick);
+                    } else {
+                        System.out.println("Invalid move");
                     }
                 }
 
             } else {
-
                 System.out.println("No piece earlier.");
-
             }
 
             previousTile = null;

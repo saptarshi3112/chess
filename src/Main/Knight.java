@@ -22,7 +22,7 @@ public class Knight extends Piece {
      * It takes the tile board and finds how many enemies are present in its moves.
      *
      */
-    List<Move> getAllPossibleMoves(Tile [][]tileBoard, int x, int y) {
+    List<Move> getAllPossibleMoves(Tile [][]tileBoard, int x, int y) throws NullPointerException {
 
         this.possibleMoves = new ArrayList<>();
 

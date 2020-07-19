@@ -52,4 +52,10 @@ public class Piece {
     }
 
     public List<Move> getPossibleMoves() { return this.possibleMoves; }
+
+    public void printPossibleMoves() {
+        for (Move move : this.possibleMoves) {
+            System.out.println(move.getX() + " " + move.getY());
+        }
+    }
 }
