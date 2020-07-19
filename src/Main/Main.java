@@ -173,16 +173,13 @@ public class Main extends JFrame implements MouseListener {
     }
 
     private void colorBoard(List <Move> possibleMoves) {
-
         for (Move itr : possibleMoves) {
             // if the move is present. mark it as possible.
             int xAxis = itr.getX(), yAxis = itr.getY();
-
             this.tileBoard[xAxis][yAxis].setNextMove(true);
             this.tileBoard[xAxis][yAxis].repaint();
 
         }
-
     }
 
     private void clearBoard() {
