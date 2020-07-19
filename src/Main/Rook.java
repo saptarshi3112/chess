@@ -18,6 +18,8 @@ public class Rook extends Piece {
     List<Move> getAllPossibleMoves(Tile [][]tileBoard, int x, int y) {
         this.possibleMoves = new ArrayList<>();
 
+        // check all four sides of the board.
+
 
 
         return this.possibleMoves;

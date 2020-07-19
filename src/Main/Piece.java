@@ -5,6 +5,8 @@ import java.util.*;
 
 public class Piece {
 
+    protected static Integer ROWS = 8;
+
     private String imagePath;
     private String color;
     private String type;
@@ -41,8 +43,8 @@ public class Piece {
         this.type = type;
     }
 
-    public boolean isPieceSafe(int x, int y) {
-        return (x >= 0 && x < 8 && y >= 0 && y < 8);
+    public boolean isPieceSafe(int x, int y, Tile [][]tiles) {
+        return (x >= 0 && x < ROWS && y >= 0 && y < ROWS);
     }
 
     public void setPossibleMoves(List<Move> possibleMoves) {
