@@ -19,32 +19,68 @@ public class Rook extends Piece {
     List<Move> getAllPossibleMoves(Tile [][]tileBoard, int x, int y) throws NullPointerException {
         this.possibleMoves = new ArrayList<>();
 
-        // check all four sides of the boards till it can go.
-        // top
-        for (int i = x; i >= 0; i--) {
-            if (isPieceSafe(i, y, tileBoard)) {
-                this.possibleMoves.add(new Move(i, y));
+//         check all four sides of the boards till it can go.
+//         top
+        for (int i = x-1; i >= 0; i--) {
+            String action = super.isPieceSafe(i, y, tileBoard);
+            System.out.println(action);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(i, y, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(i, y, true, false));
+                break;
+            } else if (action.equals("BLOCK")) {
+                // a friend piece is present. break the loop.
+                break;
+            } else if (action.equals("INVALID")) {
+                System.out.println("Invalid");
             }
         }
 
         // bottom
-        for (int i = x; i < ROWS; i++) {
-            if (isPieceSafe(i, y, tileBoard)) {
-                this.possibleMoves.add(new Move(i, y));
+        for (int i = x+1; i < ROWS; i++) {
+            System.out.println(i  + " " + y);
+            String action = super.isPieceSafe(i, y, tileBoard);
+            System.out.println(action);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(i, y, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(i, y, true, false));
+                break;
+            } else if (action.equals("BLOCK")) {
+                // a friend piece is present. break the loop.
+                break;
+            } else if (action.equals("INVALID")) {
+                System.out.println("Invalid");
             }
         }
 
         // left.
-        for (int i = y; i >= 0; i--) {
-            if (isPieceSafe(x, i, tileBoard)) {
-                this.possibleMoves.add(new Move(x, i));
+        for (int i = y-1; i >= 0; i--) {
+            String action = super.isPieceSafe(x, i, tileBoard);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(x, i, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(x, i, true, false));
+                break;
+            } else if (action.equals("BLOCK")) {
+                // a friend piece is present. break the loop.
+                break;
+            } else if (action.equals("INVALID")) {
+                System.out.println("Invalid");
             }
         }
 
-        // right
-        for (int i = y; i < ROWS; i++) {
-            if (isPieceSafe(x, i, tileBoard)) {
-                this.possibleMoves.add(new Move(x, i));
+//         right
+        for (int i = y+1; i < ROWS; i++) {
+            String action = super.isPieceSafe(x, i, tileBoard);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(x, i, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(x, i, true, false));
+                break;
+            } else if (action.equals("BLOCK")) {
+                break;
             }
         }
 

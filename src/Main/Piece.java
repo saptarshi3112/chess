@@ -43,10 +43,6 @@ public class Piece {
         this.type = type;
     }
 
-    public boolean isPieceSafe(int x, int y, Tile [][]tiles) {
-        return (x >= 0 && x < ROWS && y >= 0 && y < ROWS);
-    }
-
     public void setPossibleMoves(List<Move> possibleMoves) {
         this.possibleMoves = possibleMoves;
     }
@@ -58,4 +54,42 @@ public class Piece {
             System.out.println(move.getX() + " " + move.getY());
         }
     }
+
+    public String moveAction(int x, int y, Tile[][]tileBoard) {
+        // get the tile on the next move board.
+        Tile nextTile = tileBoard[x][y];
+
+        if (nextTile.isTileOccupied()) {
+            // if this tile has a piece. get it.
+            Piece pieceOnTile = nextTile.getPiece();
+        }
+
+        return "MOVE";
+    }
+
+    public String isPieceSafe(int x, int y, Tile [][]tiles) {
+        if (x >= 0 && x < ROWS && y >= 0 && y < ROWS) {
+            // Get the current tile.
+            Tile currentTile = tiles[x][y];
+            // if the tile has a piece.
+            if (currentTile.isTileOccupied()) {
+                // get the piece and if enemy or not.
+                Piece tilePiece = currentTile.getPiece();
+                System.out.println("tilePiece" + tilePiece + "this color" + this.color);
+                if (tilePiece.getColor().equals(this.color)) {
+                    // same color. invalid
+                    return "BLOCK";
+                } else {
+                    // enemy block.
+                    return "ATTACK";
+                }
+            } else {
+                return "VALID";
+            }
+        } else {
+            return "INVALID";
+        }
+    }
+
+    public void addPossibleMoves() {}
 }

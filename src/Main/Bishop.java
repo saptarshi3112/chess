@@ -20,49 +20,65 @@ public class Bishop extends Piece {
         this.possibleMoves = new ArrayList<>();
 
         // four diagonals.
-        int i = x, j = y;
+        int i = x+1, j = y+1;
 
         // bottom right
         while (i < ROWS && j < ROWS) {
-
-            if (isPieceSafe(i, j, tileBoard)) {
-                this.possibleMoves.add(new Move(i, j));
+            String action = super.isPieceSafe(i, j, tileBoard);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(i, j, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(i, j, true, false));
+            } else if (action.equals("BLOCK")) {
+                break;
             }
-
             i += 1;
             j += 1;
         }
 
-        i = x;
-        j = y;
+        i = x-1;
+        j = y-1;
 
         while (i >= 0 && j >= 0) {
-            if (isPieceSafe(i, j, tileBoard)) {
-                this.possibleMoves.add(new Move(i, j));
+            String action = super.isPieceSafe(i, j, tileBoard);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(i, j, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(i, j, true, false));
+            } else if (action.equals("BLOCK")) {
+                break;
             }
-
             i -= 1;
             j -= 1;
         }
 
         // top left.
-        i = x;
-        j = y;
+        i = x-1;
+        j = y+1;
 
         while (i >= 0 && j < ROWS) {
-            if (isPieceSafe(i, j, tileBoard)) {
-                this.possibleMoves.add(new Move(i, j));
+            String action = super.isPieceSafe(i, j, tileBoard);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(i, j, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(i, j, true, false));
+            } else if (action.equals("BLOCK")) {
+                break;
             }
-
             i -= 1;
             j += 1;
         }
 
-        i = x;
-        j = y;
+        i = x+1;
+        j = y-1;
         while (i < ROWS && j >= 0) {
-            if (isPieceSafe(i, j, tileBoard)) {
-                this.possibleMoves.add(new Move(i, j));
+            String action = super.isPieceSafe(i, j, tileBoard);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(i, j, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(i, j, true, false));
+            } else if (action.equals("BLOCK")) {
+                break;
             }
 
             i += 1;
@@ -74,5 +90,4 @@ public class Bishop extends Piece {
         super.printPossibleMoves();
         return this.possibleMoves;
     }
-
 }

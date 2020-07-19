@@ -15,8 +15,8 @@ public class Main extends JFrame implements MouseListener {
     // This matrix will contain all the config of the board at any point.
     private final Tile[][] tileBoard = new Tile[ROWS][COLS];
 
-    private static Knight blackKnight, blackKnight2;
-    private static Rook blackRook, blackRook2;
+    private static Knight blackKnight, blackKnight2, whiteKnight, whiteKnight2;
+    private static Rook blackRook, blackRook2, whiteRook, whiteRook2;
     private static Bishop blackBishop, blackBishop2;
 
     private static Tile previousTile = null;
@@ -39,18 +39,32 @@ public class Main extends JFrame implements MouseListener {
 
                 // The first row will contain all the black main pieces.
                 if (i == 0) {
-                    if (j == 0)
+                    if (j == 0) {
                         tempPiece = blackRook;
-                    if (j == 1)
+                    } if (j == 1) {
                         tempPiece = blackKnight;
-                    if (j == 2)
+                    } if (j == 2) {
                         tempPiece = blackBishop;
-                    if (j == 5)
+                    } if (j == 5) {
                         tempPiece = blackBishop2;
-                    if (j == 6)
+                    } if (j == 6) {
                         tempPiece = blackKnight2;
-                    if (j == 7)
+                    } if (j == 7) {
                         tempPiece = blackRook2;
+                    }
+                }
+
+                // the last row will contain all the white main ones.
+                if (i == 7) {
+                    if (j == 0) {
+                        tempPiece = whiteRook;
+                    } if (j == 1) {
+                        tempPiece = whiteKnight;
+                    } if (j == 6) {
+                        tempPiece = whiteKnight2;
+                    } if (j == 7) {
+                        tempPiece = whiteRook2;
+                    }
                 }
 
                 // create a new tile.
@@ -79,9 +93,13 @@ public class Main extends JFrame implements MouseListener {
 
         blackKnight = new Knight("Black_Knight.png", "BLACK", "KNIGHT");
         blackKnight2 = new Knight("Black_Knight.png", "BLACK", "KNIGHT");
+        whiteKnight = new Knight("White_Knight.png", "WHITE", "KNIGHT");
+        whiteKnight2 = new Knight("White_Knight.png", "WHITE", "KNIGHT");
 
         blackRook = new Rook("Black_Rook.png", "BLACK", "ROOK");
         blackRook2 = new Rook("Black_Rook.png", "BLACK", "ROOK");
+        whiteRook = new Rook("White_Rook.png", "WHITE", "ROOK");
+        whiteRook2 = new Rook("White_Rook.png", "WHITE", "ROOK");
 
         blackBishop = new Bishop("Black_Bishop.png", "BLACK", "BISHOP");
         blackBishop2 = new Bishop("Black_Bishop.png", "BLACK", "BISHOP");
@@ -154,9 +172,7 @@ public class Main extends JFrame implements MouseListener {
                     break;
 
                 default:
-
                     System.out.println("No piece of this type.");
-
                     break;
             }
 
@@ -219,12 +235,17 @@ public class Main extends JFrame implements MouseListener {
     }
 
     private void colorBoard(List <Move> possibleMoves) {
-        for (Move itr : possibleMoves) {
+        for (Move move : possibleMoves) {
             // if the move is present. mark it as possible.
-            int xAxis = itr.getX(), yAxis = itr.getY();
-            this.tileBoard[xAxis][yAxis].setNextMove(true);
-            this.tileBoard[xAxis][yAxis].repaint();
+            System.out.println(move.getX() + " " + move.getY() + " " + move.isHasEnemy() + " " + move.isValidMove());
+            int xAxis = move.getX(), yAxis = move.getY();
 
+            boolean isAttackMove = move.isHasEnemy();
+            boolean isNextMove = move.isValidMove();
+
+            this.tileBoard[xAxis][yAxis].setNextMove(isNextMove);
+            this.tileBoard[xAxis][yAxis].setInDanger(isAttackMove);
+            this.tileBoard[xAxis][yAxis].repaint();
         }
     }
 
@@ -233,6 +254,7 @@ public class Main extends JFrame implements MouseListener {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 this.tileBoard[i][j].setNextMove(false);
+                this.tileBoard[i][j].setInDanger(false);
                 this.tileBoard[i][j].repaint();
             }
         }

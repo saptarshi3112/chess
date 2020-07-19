@@ -10,12 +10,6 @@ public class Knight extends Piece {
     }
 
 
-    @Override
-    public boolean isPieceSafe(int x, int y, Tile [][]tiles) {
-        return false;
-    }
-
-
     /**
      *
      * This method will calculate all the possible moves a piece can have.
@@ -36,10 +30,12 @@ public class Knight extends Piece {
 
             System.out.println(nextMoveX + " " + nextMoveY);
 
-            if (super.isPieceSafe(nextMoveX, nextMoveY, tileBoard)) {
-                possibleMoves.add(new Move(nextMoveX, nextMoveY));
+            String action = super.isPieceSafe(nextMoveX, nextMoveY, tileBoard);
+            if (action.equals("VALID")) {
+                possibleMoves.add(new Move(nextMoveX, nextMoveY, false, true));
+            } else if (action.equals("ATTACK")) {
+                possibleMoves.add(new Move(nextMoveX, nextMoveY, true, false));
             }
-
         }
 
         this.setPossibleMoves(this.possibleMoves);

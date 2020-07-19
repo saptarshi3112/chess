@@ -100,6 +100,14 @@ public class Tile extends JPanel {
         this.isNextMove = nextMove;
     }
 
+    public boolean isInDanger() {
+        return isInDanger;
+    }
+
+    public void setInDanger(boolean inDanger) {
+        isInDanger = inDanger;
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -107,6 +115,8 @@ public class Tile extends JPanel {
         // if it is next move, color yellow
         if (this.isNextMove) {
             this.setBackground(Color.YELLOW);
+        } else if (this.isInDanger) {
+            this.setBackground(Color.RED);
         } else {
             // else normal color.
             if ((this.xAxis + this.yAxis)%2 == 0) {
@@ -115,7 +125,6 @@ public class Tile extends JPanel {
                 this.setBackground(Color.GRAY);
             }
         }
-
     }
 
     void removePiece() {
