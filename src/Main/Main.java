@@ -100,16 +100,17 @@ public class Main extends JFrame implements MouseListener {
             // get the type of piece.
             String type = currentPiece.getType();
 
-
             switch (type) {
                 case "KNIGHT":
-
                     // cast the piece to knight.
                     Knight knight = (Knight)(currentPiece);
-                    List <Move> possibleMoves = knight.getAllPossibleMoves(this.tileBoard, xAxis, yAxis);
-
-                    this.colorBoard(possibleMoves);
-
+                    List <Move> possibleMovesKnight = knight.getAllPossibleMoves(this.tileBoard, xAxis, yAxis);
+                    this.colorBoard(possibleMovesKnight);
+                    break;
+                case "ROOK":
+                    Rook rook = (Rook)(currentPiece);
+                    List <Move> possibleMovesRook = rook.getAllPossibleMoves(this.tileBoard, xAxis, yAxis);
+                    this.colorBoard(possibleMovesRook);
                     break;
                 default:
                     break;
